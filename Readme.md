@@ -3,28 +3,29 @@
 ## Configuración inicial del proyecto
 
 0. Instalar `django`:  `pip install django`
-1. Crear carpeta para nuestro repositorio, yo elegí nombrarla: "ProyectoCoder54195"
+1. Crear carpeta para nuestro repositorio, yo elegí nombrarla: "ProyectoCoder"
 2. dentro de esa carpeta: `django-admin startproject ProyectoFinal`. Este comando dejará creada una nueva carpeta `ProyectoFinal` con una
 estructura como esta:
 ```bash
-# directorio: ProyectoCoder54195/ProyectoFinal
+# directorio: ProyectoCoder/ProyectoFinal
 drwxr-xr-x@ 8 marianobarraco  staff   256B Sep  3 09:26 ProyectoFinal  # <--- directorio principal del proyecto (nombre repetido)
 -rw-r--r--@ 1 marianobarraco  staff     0B Sep  3 09:28 db.sqlite3
 -rwxr-xr-x@ 1 marianobarraco  staff   669B Sep  3 09:25 manage.py
 ```
-1. Dentro de la carpeta `ProyectoCoder54195/ProyectoFinal/ProyectoFinal` vamos a correr el comando `python manage.py startapp AppCoder` lo
+1. Dentro de la carpeta `ProyectoCoder/ProyectoFinal/ProyectoFinal` vamos a correr el comando `python manage.py startapp AppCoder` lo
 cual nos dejará en este estado
 ```bash
-# directorio: ProyectoCoder54195/ProyectoFinal
+# directorio: ProyectoCoder/ProyectoFinal
 drwxr-xr-x@ 9 marianobarraco  staff   288B Sep  3 09:31 AppCoder  # <--- nueva carpeta
 drwxr-xr-x@ 8 marianobarraco  staff   256B Sep  3 09:26 ProyectoFinal
 -rw-r--r--@ 1 marianobarraco  staff     0B Sep  3 09:28 db.sqlite3
 -rwxr-xr-x@ 1 marianobarraco  staff   669B Sep  3 09:25 manage.py
 ```
-1. Probamos que nuestro servidor web funcione correctamente, para ello vamos a correr el siguiente comando `python manage.py runserver` y comprobaeremos de 2 maneras: (i) observar la respuesta en la consola y (ii)en el browser (por ejemplo _Google Chrome_):
+2. Registrar la aplicacion en `ProyectoFinal/settings.py`
+3. Probamos que nuestro servidor web funcione correctamente, para ello vamos a correr el siguiente comando `python manage.py runserver` y comprobaeremos de 2 maneras: (i) observar la respuesta en la consola y (ii)en el browser (por ejemplo _Google Chrome_):
 
 ```bash
-# directorio: ProyectoCoder54195/ProyectoFinal
+# directorio: ProyectoCoder/ProyectoFinal
 >>  python manage.py runserver
 Watching for file changes with StatReloader
 Performing system checks...
@@ -45,7 +46,7 @@ copiar y pegar en cualquier browser: `http://127.0.0.1:8000/` y comprobar que el
 
 ## Configurar Rutas
 
-**Consejo**: cuando el proceso del servidor está corriendo, los cambios que realicemos en el código se incorporarán automáticamente. A veces esto puede no funcionar, por eso es recomendable apagar y encender el proceso del servidor con: `CRTL + C` y luego `python manage.py runserver` desde el directorio raíz del proyecto `ProyectoCoder54195/ProyectoFinal`
+**Consejo**: cuando el proceso del servidor está corriendo, los cambios que realicemos en el código se incorporarán automáticamente. A veces esto puede no funcionar, por eso es recomendable apagar y encender el proceso del servidor con: `CRTL + C` y luego `python manage.py runserver` desde el directorio raíz del proyecto `ProyectoCoder/ProyectoFinal`
 
 
 1. Checkear que nuestro proyecto tenga 1 archivo `urls.py` en el directorio `ProyectoCoder/`
@@ -69,7 +70,7 @@ copiar y pegar en cualquier browser: `http://127.0.0.1:8000/` y comprobar que el
 
 ### Funcionamiento básico de templates
 1. Crear un directorio llamado `templates` dentro del directorio `AppCoder`, luego crear otro directorio dentro de `templates` llamado `AppCoder` (sí, se repite)
-2. Crear un archivo `padre.html` en ese directorio: `ProyectoCoder54195/ProyectoFinal/AppCoder/templates/AppCoder/padre.html` y llenarlo con cualquier contenido
+2. Crear un archivo `padre.html` en ese directorio: `ProyectoCoder/ProyectoFinal/AppCoder/templates/AppCoder/padre.html` y llenarlo con cualquier contenido
 3. Modificaremos la función `cursos_view` (desde ahora la llamaremos **vista**) que _se hace cargo_ de la ruta `AppCoder/cursos` para que entregue el contenido del archivo `padre.html`
 
 **nota**: en el archivo `settings.py` hay una variable del tipo diccionario que se llama `TEMPLATES`. Esta variable contiene un par clave valor: ` "APP_DIRS": True,`
@@ -128,11 +129,11 @@ esta es la manera de informarle a `Django` que queremos que utilice los template
    ```
 
 ### Templates con CSS ("mejorando nuestros templates")
-1. Crear una carpeta llamada `static` en nuestra app: `ProyectoCoder54195/ProyectoFinal/AppCoder/static`
+1. Crear una carpeta llamada `static` en nuestra app: `ProyectoCoder/ProyectoFinal/AppCoder/static`
 2. Descargarse el archivo `.zip` con contenido estático de: [este link](https://startbootstrap.com/previews/landing-page)
 3. Descomprimir y guardar todo el contenido en la carpeta `static`
 4. Creamos un archivo que se llame `inicio.html` en la carpeta de templates. El contenido de este archivo tiene que ser el mismo que en `index.html` del archivo `.zip` que descomprimimos.
-5. Vamos a elminar todo el contenido dede la línea 76 `<!-- Icons Grid-->` hasta la línea 203 `</section>`
+5. Vamos a elminar todo el contenido dede la línea 74 `<!-- Icons Grid-->` hasta la línea 201 `</section>`
 6. Le agregamos 1 línea y modificamos otra:
     ```html
     {% load static %}
@@ -160,11 +161,11 @@ esta es la manera de informarle a `Django` que queremos que utilice los template
    ```
 5. Checkear la existencia de la tabla en la base de datos utilizando **DB Browser**
 
-### Formularios (básicos) para crear modelos
+### Formularios (básicos) para crear instancias de modelos en la base de datos
 
 Idea: vamos a evolucionar la vista `cursos_view` para que pueda cumplir 2 funciones:
  * Devolver un formulario de creación de cuross
- * VCrear un formulario en la base de datos.
+ * Crear un formulario en la base de datos.
 
 1. Crear un template `curso_formulario_basico.html` con el siguiente contenido:
    ```html
