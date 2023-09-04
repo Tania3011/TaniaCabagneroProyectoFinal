@@ -1,5 +1,3 @@
-# Clase 12
-
 ## Configuración inicial del proyecto
 
 0. Instalar `django`:  `pip install django`
@@ -247,3 +245,97 @@ Idea: vamos a evolucionar la vista `cursos_view` para que pueda cumplir 2 funcio
     ```
 4. Editamos `cursos_view` para que utilice el nuevo template tanto para requests `GET` como para `POST`
 5. Modificamos el template `padre.html` para que tenga un link a `AppCoder/cursos` y al `inicio`.
+
+# Clase 12
+
+## Pendiente
+
+1. Usar validación de Forms
+```python
+def cursos_view(request):
+    if request.method == "GET":
+        print("+" * 90) #  Imprimimos esto para ver por consola
+        print("+" * 90) #  Imprimimos esto para ver por consola
+        return render(
+            request,
+            "AppCoder/curso_formulario_avanzado.html",
+            {"form": CursoFormulario()}
+        )
+    else:
+        formulario = CursoFormulario(request.POST)
+        if formulario.is_valid():
+            informacion = formulario.cleaned_data
+            modelo = Curso(curso=informacion["curso"], camada=informacion["camada"])
+            modelo.save()
+        return render(
+            request,
+            "AppCoder/inicio.html",
+        )
+
+```
+## Panel de Administración
+
+1. Creamos el panel de administración en `ProyectoFina/AppCoder/admin.py`
+## Otros modelos
+
+1. Creamos los modelos: `Profesor`, `Estudiante`, `Entregable`
+
+```python
+class Entregable(models.Model):
+    nombre = models.CharField(max_length=50)
+    fecha_entrega = models.DateField()
+    entregado = models.BooleanField()
+
+
+class Estudiante(models.Model):
+    nombre = models.CharField(max_length=50)
+    apellido = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
+
+
+class Profesor(models.Model):
+    nombre = models.CharField(max_length=50)
+    apellido = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
+    profesion = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.nombre} {self.appelido}"
+```
+2. Corrrer sucesivamente
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+## CRUD
+
+**Consejo**: Familiarizarse con la `shell` de **Django**: `python manage.py shell`
+```python
+from AppCoder.models import *
+
+cursos = Curso.objects.all()
+for curso in cursos:
+    print(curso.curso)
+```
+
+### Crear (Create)
+
+1. Creamos un formulario para el modelo `Profesor`
+2. Creamos una vista que sepa mostrar el formulario vacío (`GET`) y sepa procesar el formulario lleno (`POST`)
+3. Creamos un template
+### Leer (Read)
+
+1. Creamos una view para leer todos los cursos: `cursos_crud_read_view`:
+    ```python
+    def cursos_crud_read_view(request):
+        cursos = Curso.all()
+
+    contexto = {"cursos": cursos}
+    ```
+2. Creamos un **template** y registramos la **url**
+3. **consejo**: agregar al template: `<a href="/AppCoder/profesores">Crear profesor</a>`
+
+### Eliminar (Delete)
+
+### Editar (Update)

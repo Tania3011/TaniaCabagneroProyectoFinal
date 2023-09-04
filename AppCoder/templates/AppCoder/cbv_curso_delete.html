@@ -1,0 +1,18 @@
+{% extends "AppCoder/padre.html" %}
+
+
+{% block contenidoQueCambia %}
+<h4>Este es el contenido de Cursos!</h4>
+
+{{ nombre }}
+<h1> Borrar Curso </h1>
+
+<body style="background-color: pink;">
+    <form action="" method="POST">
+        {% csrf_token %}
+        Estás seguro que deseas borrar el curso: {{curso.curso}} - camada: {{ curso.camada }} ?
+        <input type="submit" value="Eliminar">
+    </form>
+</body>
+
+{% endblock %}
