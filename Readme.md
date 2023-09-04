@@ -276,6 +276,18 @@ def cursos_view(request):
 ## Panel de Administración
 
 1. Creamos el panel de administración en `ProyectoFina/AppCoder/admin.py`
+2. Creamos un super usuario mediante `python manage.py createsuperuser`
+   ```bash
+    >> python manage.py createsuperuser
+        Username (leave blank to use 'marianobarraco'): admin
+        Email address: a@a.com
+        Password:
+        Password (again):
+        The password is too similar to the username.
+        This password is too common.
+        Bypass password validation and create user anyway? [y/N]: y
+        Superuser created successfully.
+    ```
 ## Otros modelos
 
 1. Creamos los modelos: `Profesor`, `Estudiante`, `Entregable`
