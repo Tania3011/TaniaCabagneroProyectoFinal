@@ -275,7 +275,20 @@ def cursos_view(request):
 ```
 ## Panel de Administración
 
-1. Creamos el panel de administración en `ProyectoFina/AppCoder/admin.py`
+1. Creamos el panel de administración en `ProyectoFina/AppCoder/admin.py` con el siguiente contenido
+ ```python
+    from django.contrib import admin
+
+    # Register your models here.
+
+    from .models import Curso
+
+
+    @admin.register(Curso)
+    class CursoAdmin(admin.ModelAdmin):
+        pass
+
+```
 2. Creamos un super usuario mediante `python manage.py createsuperuser`
    ```bash
     >> python manage.py createsuperuser

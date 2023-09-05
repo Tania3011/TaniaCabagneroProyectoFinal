@@ -69,10 +69,12 @@ def profesores_crud_read_view(request):
     profesores = Profesor.objects.all()
     return render(request, "AppCoder/profesores_lista.html", {"profesores": profesores})
 
+
 def profesores_crud_delete_view(request, profesor_email):
-    profesor_a_eliminar = Profesor.objects.filter(email=profesor_email)
+    profesor_a_eliminar = Profesor.objects.filter(email=profesor_email).first()
     profesor_a_eliminar.delete()
     return profesores_crud_read_view(request)
+
 
 def profesores_crud_update_view(request, profesor_email):
     profesor = Profesor.objects.filter(email=profesor_email).first()
@@ -99,7 +101,7 @@ def profesores_crud_update_view(request, profesor_email):
 
 
 
-####################  CBV  #########################################
+####################  ClassBasedViews (CBV)  - Vistas basadas en Clases #########################################
 
 class CursoListView(ListView):
     model = Curso
@@ -123,7 +125,7 @@ class CursoUpdateView(UpdateView):
     model = Curso
     template_name = "AppCoder/cbv_curso_update.html"
     success_url = reverse_lazy("curso-list")
-    fields = ["curso", "camada"]
+    fields = ["curso"]
 
 class CursoDeleteView(DeleteView):
     model = Curso

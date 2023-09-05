@@ -2,17 +2,14 @@
 
 
 {% block contenidoQueCambia %}
-<h4>Este es el contenido de Cursos!</h4>
 
 {{ nombre }}
-<h1> Borrar Curso </h1>
+<h1>Borrar Curso: {{curso.curso}}</h1>
 
-<body style="background-color: pink;">
-    <form action="" method="POST">
-        {% csrf_token %}
-        Estás seguro que deseas borrar el curso: {{curso.curso}} - camada: {{ curso.camada }} ?
-        <input type="submit" value="Eliminar">
-    </form>
-</body>
+<p>Estás seguro que deseas borrar el curso: <strong>{{curso.curso}}</strong> - camada: <strong>{{ curso.camada }}</strong>?</p>
+<form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Eliminar">
+</form>
 
 {% endblock %}

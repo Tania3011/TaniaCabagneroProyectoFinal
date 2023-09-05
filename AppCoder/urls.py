@@ -25,6 +25,7 @@ urlpatterns = [
     path("profesores-lista/", profesores_crud_read_view),
     path("profesores-eliminar/<profesor_email>/", profesores_crud_delete_view),
     path("profesores-editar/<profesor_email>/", profesores_crud_update_view),
+
     ### CBV
 
     path("curso/list", CursoListView.as_view(), name="curso-list"),
